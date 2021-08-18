@@ -1,8 +1,9 @@
 def sum(array)
   if array.empty?
-    total = 0
+    count = 0
   else
-    total = array.slice!(0) + sum(array)
+    array.slice!(0)
+    count = 1 + sum(array)
   end
 end
 
