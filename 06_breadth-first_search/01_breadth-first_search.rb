@@ -1,35 +1,50 @@
 
 def person_is_seller(name)
-  return name[-1] == 'm'
+  #return name[-1] == 'm'
+  if name[-1] == 'm'
+    return true
+  end
 
+end
+
+def search(name)
   graph = {}
   graph["you"] = ["alice", "bob", "claire"]
   graph["bob"] = ["anuj", "peggy"]
   graph["alice"] = ["peggy"]
-  graph["claire"] = ["thom", "jonny"]
+  graph["claire"] = ["jones", "jonny"]
   graph["anuj"] = []
   graph["peggy"] = []
-  graph["thom"] = []
-  graph["jonny"] = []
-end
-
-def search(name)
+  graph["jones"] = ["thomas"]
+  graph["jonny"] = ["tim"]
   search_queue = Queue.new
-  search_queue += graph[name]
+  #add friends to queue
+  graph[name].each do |friend|
+    search_queue << friend
+  end
   # This array is how you keep track of which people you've searched before.
   searched = []
   while search_queue
-      person = search_queue.pop
-      # Only search this person if you haven't already searched them.
-      if not person in searched
-          if person_is_seller(person)
-              print person + " is a mango seller!"
-              return True
-          else:
-              search_queue += graph[person]
-              # Marks this person as searched
-              searched.append(person)
-  return False
+    person = search_queue.pop
+    # Only search this person if you haven't already searched them.
+    if !searched.include?(person)
+      if person[-1] == 'm'
+        print "#{person} is a mango seller!"
+        return true
+      else
+        #add friends to queue
+        if graph[person] != nil
+          graph[person].each do |friend|
+            search_queue << friend
+          end
+        end
+        # Marks this person as searched
+        searched << person
+      end
+    end
+  end
+  search_queue.close
+  return false
 end
 
 search("you")
