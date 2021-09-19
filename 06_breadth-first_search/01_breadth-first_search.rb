@@ -1,3 +1,4 @@
+
 #Solution using an array in lieu of a queue
 def person_is_seller(name)
   name[-1] == 'm' #Assume mango sellers' names end in m
